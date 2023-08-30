@@ -1,0 +1,127 @@
+openapi: 3.0.0
+info:
+  title: API de gestion des voyages en bus
+  version: 1.0.0
+paths:
+  /car/{busline}:
+    get:
+      summary: Récupérer la liste des voitures en fonction de la signification
+      parameters:
+        - name: busline
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Succès
+          content:
+            application/json: {}
+  /passenger/gotrip:
+    post:
+      summary: Créer un nouveau passager pour un voyage
+      requestBody:
+        description: Données du passager à insérer
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PassengerReduced'
+      responses:
+        '200':
+          description: Succès
+          content:
+            application/json: {}
+  /people/onTrip/{idTrip}:
+    get:
+      summary: Récupérer la liste des personnes pour un voyage donné
+      parameters:
+        - name: idTrip
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Succès
+          content:
+            application/json: {}
+  /trip/showall:
+    get:
+      summary: Récupérer la liste de tous les voyages
+      responses:
+        '200':
+          description: Succès
+          content:
+            application/json: {}
+  /trip/bus{busline}:
+    get:
+      summary: Récupérer la liste des détails de voyage en fonction de sa ligne
+      parameters:
+        - name: busline
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Succès
+          content:
+            application/json: {}
+  /trip/delete/{id}:
+    delete:
+      summary: Supprimer un voyage
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Succès
+          content:
+            application/json: {}
+  /trip/create:
+    post:
+      summary: Créer un nouveau voyage
+      requestBody:
+        description: Données du voyage à insérer
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TripReduced'
+      responses:
+        '200':
+          description: Succès
+          content:
+            application/json: {}
+components:
+  schemas:
+    PassengerReduced:
+      type: object
+      properties:
+        firstName:
+          type: string
+        lastName:
+          type: string
+        age:
+          type: integer
+        gender:
+          type: string
+    TripReduced:
+      type: object
+      properties:
+        # Définir les propriétés attendues ici
+        PassengerReduced:
+          type: object
+          properties:
+            firstName:
+              type: string
+            lastName:
+              type: string
+            age:
+              type: integer
+            gender:
+              type: string
